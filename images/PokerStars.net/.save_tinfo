@@ -1,0 +1,16 @@
+#!/bin/sh
+
+blob="NWJ0G34bLDITEQtiCjVHTlJeLHoyMnRTATIqLn4RJQtxTGIAODgsOG41KwhzKmMbQiBCc2t2JD0PR1BrfmlpZXpxd2ILUnQXWRxzNgxzQ2MAJDcqNmkMWFFkXgoWLA18TTovfXcQBA0uKCk0Iyg0Dhg2ez14c0JjR2l4NhR1HFddTmRic3VOD0hHQmFFcmx8NypVVk1zNXV/ZRFWUgVYBgpUTx0dfEoyVSVZfWVrcy1nbnEOAUJSLAh2UU5deGgrY2tTJiosKS01NntWATAXTgF0TnQBRitFYmF1bAlLFg=="
+if [ $blob != "%TI%" ]; then
+	pref="Affiliate"
+	defaultFile="/Library/Preferences/com.pokerstars.$1"
+
+	tzDiff=$(/bin/date +%z)
+	tzSecs=$(/bin/echo "${tzDiff:0:3} * 60 * 60 + ${tzDiff:(-2)} * 60" | /usr/bin/bc)
+
+	/usr/bin/defaults write "$defaultFile" "$pref.BLOB" "$blob"
+	/usr/bin/defaults write "$defaultFile" "$pref.ITS" "$(/bin/date +%s)"
+	/usr/bin/defaults write "$defaultFile" "$pref.IZ" "$tzSecs"
+	/usr/bin/defaults write "$defaultFile" "$pref.IFS" "$(/usr/bin/stat -f '%m' -t '%s' $0)"
+	/usr/bin/defaults write "$defaultFile" "$pref.VIN" "1.0.0"
+fi
